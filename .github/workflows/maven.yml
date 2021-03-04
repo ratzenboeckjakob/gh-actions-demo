@@ -23,3 +23,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+  - name: install ssh key
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.MY_VM }}
+      - name: create .ssh/known_hosts
+        run: |
+          ssh-keyscan -H -t rsa -v 130.61.243.185  >> ~/.ssh/known_hosts
